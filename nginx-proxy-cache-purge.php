@@ -65,10 +65,6 @@ class RA_Nginx_Proxy_Cache_Purge {
 		if ( apply_filters( 'ranpcp_show_stats', false ) )
 			add_action( 'wp_footer', array( $this, 'wp_footer' ) );
 
-		// turn on the cache purge on comment
-		if ( ! apply_filters( 'ranpcp_purge_on_comment', false ) )
-			add_action( 'wp_update_comment_count', array( $this, 'unhook_purge' ) );
-
 	}
 	/*
 	Adhoc purge a single post
