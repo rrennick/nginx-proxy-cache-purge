@@ -2,7 +2,7 @@
 /*
 Plugin Name: Synthesis Accelerator Cache Purge
 Plugin URI: http://websynthesis.com/
-Description: Event driven and on demand nginx proxy cache purge utility.
+Description: Synthesis Accelerator cache purge utility.  No configuration required.
 Version: 0.4
 Author: Ron Rennick
 Author URI: http://copyblogger.com/
