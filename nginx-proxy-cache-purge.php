@@ -118,7 +118,7 @@ class RA_Nginx_Proxy_Cache_Purge {
 
 		$cap = apply_filters( 'ranpcp_purge_capability', 'edit_others_' . $post->post_type . 's', $post->post_type );
 		if( current_user_can( $cap ) )
-			$actions['purge_cache'] = "<a title='" . esc_attr( __( 'Purge this item from the nginx cache', 'nginx-cache' ) ) . "' href='" . wp_nonce_url( add_query_arg( array( 'post_id' => $post->ID ), admin_url() ), 'ranpcp-purge-post' ) . "'>" . __( 'Purge cache', 'nginx-cache' ) . '</a>';
+			$actions['purge_cache'] = "<a title='" . esc_attr( __( 'Purge this item from the Synthesis Accelerator', 'nginx-cache' ) ) . "' href='" . wp_nonce_url( add_query_arg( array( 'post_id' => $post->ID ), admin_url() ), 'ranpcp-purge-post' ) . "'>" . __( 'Purge cache', 'nginx-cache' ) . '</a>';
 
 		return $actions;
 
