@@ -1,30 +1,22 @@
 <?php
 /*
-Plugin Name: Network Nginx Proxy Cache Purge
-Plugin URI: http://wpebooks.com/
+Plugin Name: Synthesis Accelerator Cache Purge
+Plugin URI: http://websynthesis.com/
 Description: Event driven and on demand nginx proxy cache purge utility.
-Version: 0.3
+Version: 0.4
 Author: Ron Rennick
-Author URI: http://ronandandrea.com/
+Author URI: http://copyblogger.com/
 Network: true
 */
 
 /*
+based on Nginx Proxy Cache Purge 0.3 by Ron Rennick (http://ronandandrea.com/)
 based on Nginx Proxy Cache Purge 0.9.4 by John Levandowski (http://johnlevandowski.com/)
 
-added by Ron Rennick, Oct-Nov 2011
-- purge taxonomy archives
-- processing specific to post type and status
-- add filters
-- add post action link
-- mobile caching support
-*/
-/*
 user agent list from WPTouch
 (iphone|ipod|incognito|webmate|android|dream|cupcake|froyo|blackberry|mobile|webos|s8000|bada)
 
 */
-//@todo translation support 
 
 class RA_Nginx_Proxy_Cache_Purge {
 
