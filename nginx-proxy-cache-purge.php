@@ -18,6 +18,23 @@ user agent list from WPTouch
 
 */
 
+// Add support for various X_forward v
+
+add_filter( 'pre_comment_user_ip', 'nginx_cache_real_user_ip');
+
+function nginx_cache_real_user_ip()
+{    
+	$REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
+	if (!empty($_SERVER['X_FORWARDED_FOR'])) {
+		$X_FORWARDED_FOR = explode(',', $_SERVER['X_FORWARDED_FOR']);
+		if (!empty($X_FORWARDED_FOR)) {
+			$REMOTE_ADDR = trim($X_FORWARDED_FOR[0]);
+		}
+	}
+
+	return preg_replace('/[^0-9a-f:\., ]/si', '', $REMOTE_ADDR);
+}
+
 class RA_Nginx_Proxy_Cache_Purge {
 
 	/*
