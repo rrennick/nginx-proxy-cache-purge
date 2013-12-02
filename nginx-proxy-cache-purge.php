@@ -1,30 +1,39 @@
 <?php
 /*
-Plugin Name: Network Nginx Proxy Cache Purge
-Plugin URI: http://wpebooks.com/
-Description: Event driven and on demand nginx proxy cache purge utility.
-Version: 0.3
+Plugin Name: Synthesis Accelerator Cache Purge
+Plugin URI: http://websynthesis.com/
+Description: Synthesis Accelerator cache purge utility.  No configuration required.
+Version: 0.4
 Author: Ron Rennick
-Author URI: http://ronandandrea.com/
+Author URI: http://copyblogger.com/
 Network: true
 */
 
 /*
+based on Nginx Proxy Cache Purge 0.3 by Ron Rennick (http://ronandandrea.com/)
 based on Nginx Proxy Cache Purge 0.9.4 by John Levandowski (http://johnlevandowski.com/)
 
-added by Ron Rennick, Oct-Nov 2011
-- purge taxonomy archives
-- processing specific to post type and status
-- add filters
-- add post action link
-- mobile caching support
-*/
-/*
 user agent list from WPTouch
 (iphone|ipod|incognito|webmate|android|dream|cupcake|froyo|blackberry|mobile|webos|s8000|bada)
 
 */
-//@todo translation support 
+
+// Add support for various X_forward v
+
+add_filter( 'pre_comment_user_ip', 'nginx_cache_real_user_ip');
+
+function nginx_cache_real_user_ip()
+{    
+	$REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
+	if (!empty($_SERVER['X_FORWARDED_FOR'])) {
+		$X_FORWARDED_FOR = explode(',', $_SERVER['X_FORWARDED_FOR']);
+		if (!empty($X_FORWARDED_FOR)) {
+			$REMOTE_ADDR = trim($X_FORWARDED_FOR[0]);
+		}
+	}
+
+	return preg_replace('/[^0-9a-f:\., ]/si', '', $REMOTE_ADDR);
+}
 
 class RA_Nginx_Proxy_Cache_Purge {
 
@@ -72,10 +81,6 @@ class RA_Nginx_Proxy_Cache_Purge {
 		// turn on the stats in the footer source
 		if ( apply_filters( 'ranpcp_show_stats', false ) )
 			add_action( 'wp_footer', array( $this, 'wp_footer' ) );
-
-		// turn on the cache purge on comment
-		if ( ! apply_filters( 'ranpcp_purge_on_comment', false ) )
-			add_action( 'wp_update_comment_count', array( $this, 'unhook_purge' ) );
 
 	}
 	/*
@@ -126,7 +131,7 @@ class RA_Nginx_Proxy_Cache_Purge {
 
 		$cap = apply_filters( 'ranpcp_purge_capability', 'edit_others_' . $post->post_type . 's', $post->post_type );
 		if( current_user_can( $cap ) )
-			$actions['purge_cache'] = "<a title='" . esc_attr( __( 'Purge this item from the nginx cache', 'nginx-cache' ) ) . "' href='" . wp_nonce_url( add_query_arg( array( 'post_id' => $post->ID ), admin_url() ), 'ranpcp-purge-post' ) . "'>" . __( 'Purge cache', 'nginx-cache' ) . '</a>';
+			$actions['purge_cache'] = "<a title='" . esc_attr( __( 'Purge this item from the Synthesis Accelerator', 'nginx-cache' ) ) . "' href='" . wp_nonce_url( add_query_arg( array( 'post_id' => $post->ID ), admin_url() ), 'ranpcp-purge-post' ) . "'>" . __( 'Purge cache', 'nginx-cache' ) . '</a>';
 
 		return $actions;
 
